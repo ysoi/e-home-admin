@@ -1,7 +1,5 @@
-
 const mongoose = require('mongoose');
- 
-const news  = new mongoose.Schema({
+const newsDetail=new mongoose.Schema({
     author:{
         type: mongoose.SchemaTypes.ObjectId,
         ref:'adminUser',
@@ -31,8 +29,5 @@ const news  = new mongoose.Schema({
         require:true,
         ref:'category',
     },
-
-},{versionKey: false, timestamps: {createdAt: 'create_time', updatedAt:
- 'update_time'}});
-
- module.exports = mongoose.model('news',news) 
+},{versionKey:false,timestamps:{createAt:"create_time",updateAt:"update_time"}});
+module.exports=mongoose.model('newsDetail',newsDetail);

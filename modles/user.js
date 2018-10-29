@@ -12,10 +12,10 @@ const  user=new mongoose.Schema({
     birthday:{
         type:Date,
     },
-    branchID:{
-        type:String,
-        require:true
-    },
+    // branchID:{
+    //     type:String,
+    //     require:true
+    // },
     branchName:{
         type:String,
         default:"信息工程学院党支部"
@@ -32,11 +32,16 @@ const  user=new mongoose.Schema({
         type:String,
         default:"中国-上海"
     },
-    id:{
+    // id:{
+    //     type:Number,
+    //     unique:true,
+    //     require:true,
+       
+    // },
+    idCard:{
         type:String,
         unique:true,
         require:true,
-        index:true //增加索引，优化查找速度
     },
     jobRank:{
         type:String,
@@ -106,6 +111,6 @@ const  user=new mongoose.Schema({
     }
 
 },
-{versionKey:false}
+{versionKey:false,timestamps:{createAt:"create_time",updateAt:"update_time"}}
 )
 module.exports=mongoose.model('user',user);

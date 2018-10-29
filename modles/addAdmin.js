@@ -14,5 +14,5 @@ const adminUser= new mongoose.Schema({
     job:String,
     phone:String,
     sex:Number,
-},{versionKey:false,tiemstamps:{createAt:'crate_time',updateAt:'update_time'}})
+},{versionKey:false,timestamps:{createAt:'create_time',updateAt:'update_time'}})
 module.exports=mongoose.model('adminUser',adminUser);

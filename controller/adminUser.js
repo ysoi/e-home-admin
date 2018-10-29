@@ -3,9 +3,10 @@ const router=Router();
 const adminUser=require('../modles/addAdmin');
 const auth=require('../config/auth');
 //添加管理员
+
 router.post('/adminUser',auth,async (req,res,next)=>{
     try{
-        let{
+       const {
             username,
             nickname,
             password,
@@ -35,7 +36,23 @@ router.post('/adminUser',auth,async (req,res,next)=>{
     }
   
     
-})
+});
+//获取所有的管理员
+router.get('/adminList',auth,async(req,res,next)=>{
+    try{
+        let adminList= await adminUser.find()
+        // .populate({
+        //     select:"-password"
+        // });
+        res.json({
+            code:200,
+            data:adminList,
+            msg:'成功获取管理员列表'
+        })
+    }catch(err){
+        next(err);
+    }
+}),
 //管理员登录
 router.post('/login', async (req,res,next)=>{
     try{

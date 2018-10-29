@@ -1,8 +1,8 @@
 const {Router}=require('express');
 const router=Router();
-const news=require('../modles/news');
+const newsDetail=require('../modles/detail');
 const auth=require('../config/auth');
-router.post('/addNews',auth,async(req,res,next)=>{
+router.post('/addDetail',auth,async(req,res,next)=>{
     try{
        const {
             author,
@@ -15,17 +15,10 @@ router.post('/addNews',auth,async(req,res,next)=>{
             title,
             titleDesc,
             type,
-            // title,
-            // content,
-            // contentText,
-            // img,
-            // author,
-            // type,
-            // lookNumber,
 
         }=req.body;
-       console.log(req.body);
-       let data=await news.create({
+    //    console.log(req.body);
+       let data=await newsDetail.create({
             author,
             comment,
             content,
@@ -36,31 +29,24 @@ router.post('/addNews',auth,async(req,res,next)=>{
             title,
             titleDesc,
             type
-            // title,
-            // content,
-            // contentText,
-            // img,
-            // author,
-            // type,
-            // lookNumber,
         });
         // console.log(data);
         res.json({
             code:200,
             data,
-            msg:'新闻创建成功'
+            msg:'新闻详情创建成功'
         })
     }catch(err){
         next(err);
     }
 });
 //获取新闻列表
-router.get('/newsList',async(req,res,next)=>{
+router.get('/detailList',async(req,res,next)=>{
   try{
     let {page=1,size=10}=req.query;
        page=parseInt(page);
        size=parseInt(size);
-    let newsList= await news.find().skip((page-1)*size).limit(size).sort({_id:-1})
+    let data= await newsDetail.find().skip((page-1)*size).limit(size).sort({_id:-1})
     .populate({
            path:'author',
            select:"-password"
@@ -70,8 +56,8 @@ router.get('/newsList',async(req,res,next)=>{
        ;
     res.json({
         code:200,
-        data:newsList,
-        msg:'成功获取新闻列表'
+        data,
+        msg:'成功获取新闻详情列表'
     })
 
   }catch(error){
@@ -82,7 +68,7 @@ router.get('/newsList',async(req,res,next)=>{
 router.get('/:newsId',async (req,res,next)=>{
     try{
       let {newsId}=req.params;
-      let data= await news.findOne({newsId}).populate({
+      let data= await newsDetail.findOne({newsId}).populate({
              path:'author',
              select:"-password"
          }).populate({
@@ -91,7 +77,7 @@ router.get('/:newsId',async (req,res,next)=>{
       res.json({
           code:200,
           data,
-          msg:'成功获取单个新闻'
+          msg:'成功获取单个新闻详情'
       })
   
     }catch(error){
