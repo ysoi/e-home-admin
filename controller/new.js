@@ -24,7 +24,7 @@ router.post('/addNews',auth,async(req,res,next)=>{
             // lookNumber,
 
         }=req.body;
-       console.log(req.body);
+    //    console.log(req.body);
        let data=await news.create({
             author,
             comment,
